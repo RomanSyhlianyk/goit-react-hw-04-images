@@ -7,16 +7,6 @@ import { Modal } from './Modal/Modal';
 import { Loader } from './Loader/Loader';
 import { useCallback } from 'react';
 
-//  state = {
-//     query: '',
-//     images: [],
-//     error: null,
-//     loader: false,
-//     page: 1,
-//     isModalOpen: false,
-//     modalUrl: '',
-//   };
-
 export const App = () => {
   const [query, setQuery] = useState();
   const [images, setImages] = useState();
@@ -27,7 +17,6 @@ export const App = () => {
   const [modalUrl, setModalUrl] = useState();
 
   const openModal = url => {
-    
     setIsModalOpen(true);
     setModalUrl(url);
   };
@@ -47,9 +36,7 @@ export const App = () => {
     try {
       const dataImages = await getImagesApi(query, page);
 
-      setImages(prev => (
-        [...prev, ...dataImages.data.hits]
-      ));
+      setImages(prev => [...prev, ...dataImages.data.hits]);
     } catch (error) {
       setError(error.message);
     } finally {
@@ -81,81 +68,3 @@ export const App = () => {
     </>
   );
 };
-
-// export class App extends Component {
-//   state = {
-//     query: '',
-//     images: [],
-//     error: null,
-//     loader: false,
-//     page: 1,
-//     isModalOpen: false,
-//     modalUrl: '',
-//   };
-
-//
-
-//   openModal = url => {
-//     this.setState({ isModalOpen: true, modalUrl: url });
-//   };
-
-//   closeModal = () => {
-//     this.setState({ isModalOpen: false });
-//   };
-
-// changeQuery = query => {
-//   this.setState({images:[]})
-//   this.setState({ query });
-//   this.setState({ page: 1 });
-// };
-
-// loadNextPage = () => {
-//   this.setState({ page: this.state.page + 1 });
-// };
-
-//   async componentDidUpdate(prevProps, prevState) {
-//     if (
-//       prevState.query !== this.state.query ||
-//       prevState.page !== this.state.page
-//     ) {
-//       this.getImages();
-//     }
-//   }
-
-// getImages = async () => {
-//   this.setState({ loader: true });
-//   try {
-//     const { query, page } = this.state;
-//     const dataImages = await getImagesApi(query, page);
-
-//     this.setState(prev => ({
-//       images: [...prev.images, ...dataImages.data.hits],
-//     }));
-//   } catch (error) {
-//     this.setState({ error: error.message });
-//   } finally {
-//     this.setState({ loader: false });
-//   }
-// };
-
-//   render() {
-//     const { images, error, loader, query, isModalOpen, modalUrl } = this.state;
-//     if (error) return <h1>{error}</h1>;
-
-// return (
-//   <>
-//     <Searchbar onSubmit={this.changeQuery} />
-//     {loader === true && <Loader />}
-//     {query !== '' && (
-//       <ImageGallery images={images} openModal={this.openModal} />
-//     )}
-//     {images.length > 0 && loader === false && (
-//       <Button onClick={this.loadNextPage} />
-//     )}
-//     {isModalOpen && (
-//       <Modal closeModal={this.closeModal} modalUrl={modalUrl} />
-//     )}
-//   </>
-// );
-//   }
-// }
