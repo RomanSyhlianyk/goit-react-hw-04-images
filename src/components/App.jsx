@@ -8,13 +8,12 @@ import { Loader } from './Loader/Loader';
 import { useCallback } from 'react';
 
 export const App = () => {
-  const [query, setQuery] = useState();
-  const [images, setImages] = useState();
-  const [error, setError] = useState();
-  const [loader, setLoader] = useState();
-  const [page, setPage] = useState();
-  const [isModalOpen, setIsModalOpen] = useState();
-  const [modalUrl, setModalUrl] = useState();
+  const [query, setQuery] = useState('');
+  const [images, setImages] = useState([]);
+  const [loader, setLoader] = useState(false);
+  const [page, setPage] = useState(1);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalUrl, setModalUrl] = useState('');
 
   const openModal = url => {
     setIsModalOpen(true);
@@ -38,7 +37,7 @@ export const App = () => {
 
       setImages(prev => [...prev, ...dataImages.data.hits]);
     } catch (error) {
-      setError(error.message);
+      console.log(error.message);
     } finally {
       setLoader(false);
     }
